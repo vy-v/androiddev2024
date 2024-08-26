@@ -47,6 +47,8 @@ public class WeatherActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        ForecastFragment firstFragment = new ForecastFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.toolbar, firstFragment).commit();
     }
 
     @Override
