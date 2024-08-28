@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +66,22 @@ public class ForecastFragment extends Fragment {
         view.setBackgroundColor(Color.MAGENTA);
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_forecast, container, false);
-        return view;
+
+        TextView textView = new TextView(getContext());
+        textView.setText("Halo");
+        textView.setTextColor(Color.MAGENTA);
+
+        ImageView imageView = new ImageView(getContext());
+        imageView.setImageResource(R.drawable.weather_icon_pink);
+
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setBackgroundColor(Color.BLACK);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        linearLayout.addView(textView);
+        linearLayout.addView(imageView);
+
+        return linearLayout;
     }
 }
