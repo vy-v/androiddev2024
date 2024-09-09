@@ -7,13 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".WeatherActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_weather"
+            android:name="vn.edu.usth.usthweather.WeatherFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="55dp"
+            tools:layout="@layout/fragment_weather" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_forecast"
+            android:name="vn.edu.usth.usthweather.ForecastFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="55dp"
+            tools:layout="@layout/fragment_forecast" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
