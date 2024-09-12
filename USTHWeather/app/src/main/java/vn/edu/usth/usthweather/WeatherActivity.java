@@ -34,6 +34,10 @@ public class WeatherActivity extends AppCompatActivity {
         pager.setOffscreenPageLimit(3);
         pager.setAdapter(adapter);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(pager);
+
+
 
 
 
