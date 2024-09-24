@@ -11,6 +11,6 @@ Student Info
 =======================
 
 * Name: Vũ Hà Vy
-* ID: 22bi13485
+* ID: 22BI13485
 * Group ID: 6
 * Project Name: Stock dashboard
