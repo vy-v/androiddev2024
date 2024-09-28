@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+import android.media.MediaPlayer;
 
 
 public class WeatherActivity extends AppCompatActivity {
@@ -37,8 +38,9 @@ public class WeatherActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
 
-
-
+        MediaPlayer mediaPlayer = MediaPlayer.create(WeatherActivity.this, R.raw.sample_music);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
 
 
