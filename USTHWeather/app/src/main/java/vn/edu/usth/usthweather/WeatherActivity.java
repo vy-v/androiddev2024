@@ -25,6 +25,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import androidx.appcompat.widget.Toolbar;
+import android.view.MenuInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
+
+
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -57,6 +64,9 @@ public class WeatherActivity extends AppCompatActivity {
 
         playMusic();
 
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
     }
 
     private void requestStoragePermissions() {
@@ -79,8 +89,6 @@ public class WeatherActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
     private void copyFileToExternalStorage(int resourceId, String fileName) {
         InputStream in = null;
@@ -129,6 +137,30 @@ public class WeatherActivity extends AppCompatActivity {
             Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for the toolbar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.refresh) {
+            Toast.makeText(this, "Refresh clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.settings) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void onPause()
