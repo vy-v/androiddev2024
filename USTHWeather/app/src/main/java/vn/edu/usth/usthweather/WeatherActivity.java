@@ -36,8 +36,6 @@ import android.content.Intent;
 public class WeatherActivity extends AppCompatActivity {
 
     public static String TAG = "WeatherActivity";
-    private static final int REQUEST_WRITE_STORAGE = 112;
-    private static final String MP3_FILE_NAME = "your_audio_file.mp3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,85 +56,14 @@ public class WeatherActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
 
-        requestStoragePermissions();
-
-        copyFileToExternalStorage(R.raw.music, "music.mp3");
-
-        playMusic();
-
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        MediaPlayer mediaPlayer = MediaPlayer.create(WeatherActivity.this, R.raw.music);
+        mediaPlayer.start();
+
     }
 
-    private void requestStoragePermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-            } else {
-                // Permission denied
-            }
-        }
-    }
-
-    private void copyFileToExternalStorage(int resourceId, String fileName) {
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            // Input stream to read from the resource
-            in = getResources().openRawResource(resourceId);
-
-            // Path where you want to copy the file
-            File path = Environment.getExternalStorageDirectory();
-            File file = new File(path, fileName);
-
-            // Output stream to write to the destination
-            out = new FileOutputStream(file);
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-
-            // Close streams
-            in.close();
-            out.close();
-
-            Toast.makeText(this, "File copied to external storage", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void playMusic() {
-        File path = Environment.getExternalStorageDirectory();
-        File file = new File(path, "music.mp3");
-
-        if (file.exists()) {
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(file.getPath());
-                mediaPlayer.prepare();
-                mediaPlayer.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
     @Override
