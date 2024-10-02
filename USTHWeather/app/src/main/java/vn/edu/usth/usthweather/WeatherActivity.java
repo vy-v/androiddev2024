@@ -30,12 +30,17 @@ import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import static android.app.PendingIntent.getActivity;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 
 
 
 public class WeatherActivity extends AppCompatActivity {
 
     public static String TAG = "WeatherActivity";
+    private RefreshHandler refreshHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +64,19 @@ public class WeatherActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(WeatherActivity.this, R.raw.music);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.music);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
+        final Handler handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                String content = msg.getData().getString("server_response");
+                Toast.makeText(WeatherActivity.this, content, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        refreshHandler = new RefreshHandler(handler);
 
     }
 
@@ -76,16 +92,14 @@ public class WeatherActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.refresh) {
-            Toast.makeText(this, "Refresh clicked", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.settings) {
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                refreshHandler.NetworkRequest();
+                return true;
+            default:
+                super.onOptionsItemSelected(item);
         }
+        return false;
     }
 
 
